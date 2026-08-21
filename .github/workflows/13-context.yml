@@ -1,33 +1,39 @@
 name: 13-context
+
 on: workflow_dispatch
 
 jobs:
   explore-context:
     runs-on: ubuntu-latest
+
     steps:
-    - name: common github context values
-      run: |
-        echo"Repository : ${{ github.repository }}"
-        echo"Actor : ${{ github.actor }}"
-        echo"SHA : ${github.sha}"
-        echo"Run Number : ${github.run_number}"
-        echo "Ref name : ${github.ref_name}"
-        echo "Ref : ${github.ref}"
-        echo "Head ref : ${github.head_ref}"
-        echo "Base ref : ${github.base_ref}"
-        echo "workspace : ${github.workspace}"  
+      - name: common github context values
+        run: |
+          echo "Repository : ${{ github.repository }}"
+          echo "Actor : ${{ github.actor }}"
+          echo "SHA : ${{ github.sha }}"
+          echo "Run Number : ${{ github.run_number }}"
+          echo "Ref name : ${{ github.ref_name }}"
+          echo "Ref : ${{ github.ref }}"
+          echo "Head ref : ${{ github.head_ref }}"
+          echo "Base ref : ${{ github.base_ref }}"
+          echo "Workspace : ${{ github.workspace }}"
 
-    - name : runner context
-      run : | 
-        echo"Runner OS : ${runner.os}"
-        echo "Run ID : ${{ github.run_id }}"
+      - name: runner context
+        run: |
+          echo "Runner OS : ${{ runner.os }}"
+          echo "Run ID : ${{ github.run_id }}"
 
-    #dump entire contxt as json
+      # Dump entire GitHub context as JSON
+      - name: dump entire context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT" | jq . > github-context.json
 
-    - name: dump entire context
-      env: 
-        GITHUB-CONTEXT : ${{toJson(github)}}
-      run : |
-        echo "$GITHUB-CONTEXT" | jq . > github-context.json
-  
-    
+      # Dump entire runner context as JSON
+      - name: dump runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJson(runner) }}
+        run: |
+          echo "$RUNNER_CONTEXT" | jq . > runner-context.json
