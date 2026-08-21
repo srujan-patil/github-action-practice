@@ -7,7 +7,6 @@ jobs:
     steps:
     - name: common github context values
       run: |
-
       echo"Repository : ${github.repository}"
       echo"Actor : ${github.actor}"
       echo"SHA : ${github.sha}"
@@ -17,6 +16,7 @@ jobs:
       echo "Head ref : ${github.head_ref}"
       echo "Base ref : ${github.base_ref}"
       echo "workspace : ${github.workspace}"  
+
     - name : runner context
       run : | 
       echo"Runner OS : ${runner.os}"
