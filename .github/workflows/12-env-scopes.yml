@@ -14,6 +14,7 @@ jobs:
       run: |
         echo $name
   job2:
+    runs-on: ubuntu-latest
     env:
       name: change2
     steps:
@@ -21,6 +22,7 @@ jobs:
       run: |
         echo $name
   job3:
+    runs-on: ubuntu-latest
     env:
       name: change3
     steps:
