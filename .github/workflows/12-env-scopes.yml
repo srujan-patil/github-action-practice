@@ -1,0 +1,29 @@
+name: 12-env-scopes
+on: workflow_dispatch
+
+env: 
+  name: srujan
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    env: 
+      name: change1
+    steps:
+    - name: workflow-env
+      run: |
+        echo $name
+  job2:
+    env:
+      name: change2
+    steps:
+    - name: workflow-env
+      run: |
+        echo $name
+  job3:
+    env:
+      name: change3
+    steps:
+    - name: workflow-env
+      run: |
+        echo $name 
